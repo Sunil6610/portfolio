@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sunil • Animated 3D Portfolio</title>
+
+    <style>
+        :root {
+            --bg: #02030a;
+            --card: rgba(255, 255, 255, 0.05);
+            --muted: #9aa4b2;
+            --accent1: #7c5cff;
+            --accent2: #44d7b6;
+            --accent3: #ff6bcb;
+            --glass: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: var(--bg);
+            color: #e6eef8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        .bg-3d {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 20% 25%, rgba(124, 92, 255, 0.42), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 203, 0.36), transparent 40%),
+                radial-gradient(circle at 50% 55%, rgba(68, 215, 182, 0.34), transparent 40%);
+            filter: blur(72px);
+            transform: perspective(900px) rotateX(18deg) rotateY(-12deg);
+            animation: bgMove 14s infinite alternate ease-in-out;
+        }
+
+        @keyframes bgMove {
+            0% {
+                transform: perspective(900px) rotateX(18deg) rotateY(-12deg) translateY(0)
+            }
+
+            100% {
+                transform: perspective(900px) rotateX(22deg) rotateY(10deg) translateY(-40px)
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 34px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), transparent);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            z-index: 40;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #021426;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            box-shadow: 0 6px 18px rgba(124, 92, 255, 0.18);
+            transform: perspective(800px) rotateY(12deg);
+            transition: transform .28s ease;
+        }
+
+        .logo:hover {
+            transform: perspective(800px) rotateY(-12deg) scale(1.05)
+        }
+
+        nav {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            border-radius: 8px;
+        }
+
+        nav a {
+            color: var(--muted);
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: all .18s
+        }
+
+        nav a:hover {
+            color: #ff0606;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(6, 255, 238, 0.806);
+        }
+
+        .cta {
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            color: #021120;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(124, 92, 255, 0.16);
+        }
+
+        main {
+            padding-top: 84px
+        }
+
+        .hero {
+            min-height: 88vh;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 40px;
+            align-items: center;
+            padding: 64px 6vw;
+        }
+
+        .hero-left h1 {
+            font-size: 44px;
+            line-height: 1.02;
+            margin-bottom: 14px;
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .lead {
+            max-width: 60ch;
+            color: #c6d6e8;
+            margin-top: 12px
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--glass);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(8, 10, 20, 0.6);
+            transform-style: preserve-3d;
+        }
+
+        .img-tilt {
+            width: 100%;
+            height: 20%;
+            border-radius: 14px;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.06));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            transition: transform .18s ease, box-shadow .18s ease;
+            will-change: transform;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .img-tilt img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: translateZ(12px);
+        }
+
+        .img-tilt:hover {
+            box-shadow: 0 30px 60px rgba(2, 6, 23, 0.6)
+        }
+
+        section {
+            padding: 72px 6vw;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        h2.section-title {
+            font-size: 28px;
+            margin-bottom: 22px
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px
+        }
+
+        .skill {
+            background: var(--card);
+            padding: 18px;
+            border-radius: 12px;
+            transition: transform .25s;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            text-align: center;
+        }
+
+        .skill:hover {
+            transform: translateY(-8px);
+            background: linear-gradient(135deg, var(--accent1), var(--accent3))
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px
+        }
+
+        .project {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: transform .28s;
+            transform-style: preserve-3d
+        }
+
+        .project:hover {
+            transform: translateY(-10px) rotateY(8deg) scale(1.02)
+        }
+
+        .project img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block
+        }
+
+        .meta {
+            position: absolute;
+            height: 20%;
+            width: 100%;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            padding: 15px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55));
+            border-radius: 8px;
+            color: #fff
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 20px;
+            align-items: start
+        }
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px
+        }
+        .certificate {
+            position: relative;
+            border-radius: 12px;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: transform .28s;
+            transform-style: preserve-3d
+        }
+        .certificate:hover {
+            transform: translateY(-10px) rotateY(8deg) scale(1.02)
+        }
+        .certificate img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+         
+
+        .form {
+            background: var(--card);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03)
+        }
+
+        .form input,
+        .form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: transparent;
+            color: #eaf2ff
+        }
+
+        .form button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            color: #021426
+        }
+        .socialmedia {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            padding-left: 50px;
+        }
+        .socialmedia a img {
+            width: 32px;
+            height: 32px;
+            border-radius: 100%;
+            transition: box-shadow .28s;
+
+        }
+        .socialmedia a img:hover {
+         box-shadow: 0 0 8px #44d7b6;
+        }
+
+
+        footer {
+            padding: 24px 6vw;
+            text-align: center;
+            color: var(--muted)
+        }
+
+        @media (max-width:980px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 120px 6vw 40px;
+                gap: 20px
+            }
+
+            .img-tilt {
+                height: 280px
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr
+            }
+
+            .projects-grid .project img {
+                height: 180px
+            }
+        }
+
+        @media (max-width:520px) {
+            .img-tilt {
+                height: 200px
+            }
+
+            .hero-left h1 {
+                font-size: 28px
+            }
+
+            nav {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-3d" aria-hidden="true"></div>
+
+    <header>
+        <div class="brand">
+            <div class="logo" aria-hidden="true">S</div>
+            <div>
+                <div style="font-weight:700">Sunilkumar Shinde</div>
+                <div style="font-size:12px;color:var(--muted)">Mern Full-Stack Developer & Cyber Security</div>
+            </div>
+        </div>
+
+        <nav aria-label="Primary">
+            <a href="#home">Home</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+            <a href="#certificates">Certificates</a>
+            <a class="cta" href="#contact">Hire Me</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero container">
+            <div class="hero-left">
+                <h1>Hi, I'm <span style="color:var(--accent2)">    Sunilkumar Shinde </span> Mern Full-Stack Developer & Cyber Security</h1>
+                <div class="muted">I design and build responsive websites with smooth animations and pixel-perfect UI.
+                </div>
+                <p class="lead">I love turning ideas into real products. Below are my core skills, projects I built and
+                    a way to contact me.</p>
+            </div>
+
+            <aside class="card" aria-labelledby="about-heading">
+                <div class="img-tilt" data-tilt data-tilt-max="14">
+                    <img src="./IMG_20251111_202218.png" alt="Sunil - portrait" />
+                </div>
+
+                <h3 id="about-heading" style="margin-top:14px">About Me</h3>
+                <p style="color:var(--muted);margin:8px 0;">Frontend developer with 1+ years' experience building web apps
+                    using HTML, CSS & JavaScript.</p>
+
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+                    <span style="padding:8px 10px;background:#61c2ff;border-radius:8px">express.js</span>
+                    <span style="padding:8px 10px;background:#61c2ff;border-radius:8px">Node.js</span>
+                    <span style="padding:8px 10px;background:#61c2ff;border-radius:8px;box-shadow:0 6px 10px #f12323">Cyber
+                        Security</span>
+                </div>
+            </aside>
+        </section>
+
+        <section id="skills" class="container">
+            <h2 class="section-title">Skills</h2>
+            <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap">
+                <div style="flex:1;min-width:280px">
+                    <div class="skills-grid">
+                        <div class="skill">HTML & CSS</div>
+                        <div class="skill">JavaScript</div>
+                        <div class="skill">Node.js</div>
+                        <div class="skill">Responsive Design</div>
+                        <div class="skill">Animations (CSS/GSAP)</div>
+                        <div class="skill">React.js</div>
+                        <div class="skill">MongoDB</div>
+                        <div class="skill">Express.js</div>
+                        <div class="skill">Cyber Security</div>
+                    </div>
+                </div>
+
+                <div style="width:340px">
+                    <div class="img-tilt" data-tilt data-tilt-max="12">
+                        <img src="./1761107997232.jpg" alt="Sunil - skills" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="container">
+            <h2 class="section-title">Selected Projects</h2>
+
+            <div class="projects-grid">
+                <div class="project" role="article" aria-label="Iconic Fitness Club">
+                    <div class="img-tilt" data-tilt data-tilt-max="10" style="height:200px">
+                        <img src="./Screenshot 2025-11-24 121100.png"
+                            alt="Iconic Fitness Club screenshot" />
+                    </div>
+                    <div class="meta"><strong>Iconic Fitness Club</strong><br>Fitness website with animations</div>
+                </div>
+                <div class="project" role="article" aria-label="Online Cake Backery shop">
+                    <div class="img-tilt" data-tilt data-tilt-max="10" style="height:200px">
+                        <img src="./cake shop.avif" alt="Online Cake Backery shop screenshot" />
+                    </div>
+                    <div class="meta"><strong>E-commerce UI</strong><br>Online Cake Backery shop UI</div>
+                </div>
+
+                <div class="project" role="article" aria-label="Portfolio Template">
+                    <div class="img-tilt" data-tilt data-tilt-max="10" style="height:200px">
+                        <img src="./Screenshot 2025-11-24 121207.png"
+                            alt="Portfolio template screenshot" />
+                    </div>
+                    <div class="meta"><strong>Portfolio Template</strong><br>Modern animated portfolio</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="certificates" class="container">
+            <h2 class="section-title">Certificates</h2>
+            <div class="certificates-grid">
+                <div class="certificate" role="article" aria-label="Web Development Certificate">
+                    <div class="img-tilt" data-tilt data-tilt-max="10" style="height:100%">
+                        <img src="./Screenshot 2025-12-01 150909.png"
+                            alt="Full Stack Web Development Certificate" />
+                    </div>
+                    <div class="meta"><strong>Web Design & Development</strong><br>Issued by Skill India</div>
+                </div>
+
+                <div class="certificate" role="article" aria-label="Cyber Security Certificate">
+                    <div class="img-tilt" data-tilt data-tilt-max="10" style="height:100%">
+                        <img src="./cyber security.png"
+                            alt="Cyber Security Certificate" />
+                    </div>
+                    <div class="meta"><strong>Cyber Security</strong><br>Issued by Skill India</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-grid">
+                <div class="form">
+                    <form action="mailto:sunilshinde985084@gmail.com" method="POST" enctype="text/plain">
+                        <input type="text" name="name" placeholder="Your Name" required />
+                        <input type="email" name="email" placeholder="Your Email" required />
+                        <textarea name="message" rows="5" placeholder="Message" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+
+                <aside
+                    style="padding:16px;background:var(--card);border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+                    <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+                        <div
+                            style="width:72px;height:72px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)">
+                            <img src="./IMG_20251111_202218.png" alt="Sunil portrait"
+                                style="width:100%;height:100%;object-fit:cover" />
+                        </div>
+                        <div>
+                            <div style="font-weight:700">Sunilkumar Shinde</div>
+                            <div style="font-size:13px;color:var(--muted)">Mern Full-Stack Developer & Cyber Security</div>
+                        </div>
+                    </div>
+
+                    <p style="margin:6px 0;color:var(--muted)">Email: <a href="mailto:sunilshinde985084@gmail.com"
+                            style="color:inherit">sunilshinde985084@gmail.com</a></p>
+                    <p style="margin:6px 0;color:var(--muted)">Phone: +91 9021578069</p>
+                    <div class="socialmedia">
+                        <a href="#"> <img src="./instagram.png" alt="instagram"></a>
+                        <a href="#"><img src="./communication.png" alt="facebook"></a>
+                        <a href="#"><img src="./linkedin.png" alt="linkidin"></a>
+                        <a href="#"><img src="./github.png" alt="git"></a>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2025 Sunilkumar Shinde — Built with ❤️</footer>
+
+    <script>
+        /**
+         * Simple tilt effect for elements with [data-tilt]
+         * - data-tilt-max: max rotation in degrees (default 12)
+         * - will disable on small screens (touch-first) for usability
+         */
+        (function () {
+            const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+            const tiltEls = Array.from(document.querySelectorAll('[data-tilt]'));
+
+            function handleMove(e, el) {
+                const rect = el.getBoundingClientRect();
+                const horizontal = ((e.clientX ?? (e.touches && e.touches[0].clientX)) - rect.left) / rect.width;
+                const vertical = ((e.clientY ?? (e.touches && e.touches[0].clientY)) - rect.top) / rect.height;
+                const tiltMax = parseFloat(el.dataset.tiltMax) || 12;
+
+                const rotateY = (horizontal - 0.5) * (tiltMax * -1); // invert for natural feel
+                const rotateX = (vertical - 0.5) * (tiltMax);
+
+                el.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                // subtle parallax for inner image if exists
+                const inner = el.querySelector('img');
+                if (inner) inner.style.transform = `translateZ(22px) translateX(${(horizontal - 0.5) * 10}px) translateY(${(vertical - 0.5) * 10}px)`;
+            }
+
+            function reset(el) {
+                el.style.transform = '';
+                const inner = el.querySelector('img');
+                if (inner) inner.style.transform = '';
+            }
+
+            tiltEls.forEach(el => {
+                if (isTouch) {
+                    // For touch devices keep a gentle effect on press
+                    el.addEventListener('touchstart', (ev) => {
+                        handleMove(ev.touches[0], el);
+                    }, { passive: true });
+                    el.addEventListener('touchmove', (ev) => {
+                        handleMove(ev.touches[0], el);
+                    }, { passive: true });
+                    el.addEventListener('touchend', () => reset(el));
+                } else {
+                    el.addEventListener('mousemove', (ev) => handleMove(ev, el));
+                    el.addEventListener('mouseenter', (ev) => handleMove(ev, el));
+                    el.addEventListener('mouseleave', () => reset(el));
+                }
+            });
+
+            // Optional: small parallax on mouse move for background
+            if (!isTouch) {
+                const bg = document.querySelector('.bg-3d');
+                window.addEventListener('mousemove', (e) => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+                    bg.style.transform = `perspective(900px) rotateX(${18 - y}deg) rotateY(${-12 - x}deg) translateY(${Math.round(-y)}px)`;
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>
