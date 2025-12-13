@@ -37,6 +37,83 @@
             overflow-x: hidden;
         }
 
+         .welcome-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: hideWelcome 1s ease forwards;
+            animation-delay: 3.5s;
+        }
+
+        .welcome-content {
+            text-align: center;
+            color: #e6eef8;
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            letter-spacing: 2px;
+            opacity: 0;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeSlide 2s ease forwards;
+        }
+
+        .welcome-sub {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: var(--muted);
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 1.8s;
+        }
+
+        .welcome-glow {
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            background:
+                radial-gradient(circle, rgba(124, 92, 255, 0.35), transparent 60%),
+                radial-gradient(circle, rgba(68, 215, 182, 0.35), transparent 60%);
+            filter: blur(80px);
+            animation: moveGlow 6s infinite alternate ease-in-out;
+        }
+
+        @keyframes hideWelcome {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+        
         .bg-3d {
             position: fixed;
             inset: 0;
@@ -426,6 +503,17 @@
 </head>
 
 <body>
+
+     <div class="welcome-screen">
+        <div class="welcome-glow"></div>
+        <div class="welcome-content">
+            <h1 class="welcome-title">Welcome to My World</h1>
+            <p class="welcome-sub">Explore my portfolio ✨</p>
+        </div>
+    </div>
+
+
+    
     <div class="bg-3d" aria-hidden="true"></div>
 
     <header>
@@ -657,5 +745,6 @@
 </body>
 
 </html>
+
 
 
